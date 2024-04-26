@@ -1,0 +1,144 @@
+<div class='dashboard'>
+    <div class="dashboard-nav">
+
+        <!-- sidebarbar -->
+        <header>
+            <a class="menu-toggle">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+
+            <span class=" brand-logo  logola">LOGO</span>
+
+        </header>
+
+        <nav class="dashboard-nav-list">
+
+
+            <div class="upload-btn-wrapper">
+                <button class="btnadd" id="addnew">New Video &nbsp; &nbsp;<i class="fa fa-plus"></i>
+                    <input type="file" name="myfile" (change)="handleFileInput($event)" /></button>
+            </div>
+
+            <a routerLink="home" class="dashboard-nav-item mx-3 "><i class="fas fa-home"></i> <span>Home</span></a>
+
+            <a href="#" class="dashboard-nav-item mx-3 active"><i class="fa fa-folder"></i><span>Templates</span> </a>
+
+            <a href="#" class="dashboard-nav-item mx-3"><i class="fa fa-folder"></i> <span>All Videos</span> </a>
+
+
+        </nav>
+
+    </div>
+
+
+    <div class='dashboard-app'>
+        <!-- header -->
+        <header class='dashboard-toolbar'><a class="menu-toggle"><i class="fas fa-chevron-left"></i></a>
+
+            <div class="container">
+                <div class="row">
+                    <!-- col-xs-12 col-sm-6 col-md-4 col-lg-2 -->
+                    <div class="col-md-12">
+                        <div class="search-box">
+                            <form action="">
+
+                                <div class="p-1 m-3 bg-light rounded rounded-pill shadow-sm mb-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <button id="button-addon2" type="submit" class="btn btn-link "><i
+                                                    class="fa fa-search"></i></button>
+                                        </div>
+                                        <input type="search" placeholder="search.." aria-describedby="button-addon2"
+                                            class="form-control rounded   border-0 bg-light">
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </header>
+
+
+
+        <!-- Home -->
+
+
+        <div class='dashboard-content'>
+            <!-- Buttons -->
+            <div class='container'>
+                <div class="row">
+                    <div class="text-start">
+                        <h4 class="section-title px-5"><span class="px-2">Let's create some <b>Videos!</b></span></h4>
+                    </div>
+                    <div class="col-md-12">
+
+                        <div class="options-unit mt-1 mx-2">
+                            <button class="btn btn-light bt mx-5 " (click)="navigateToAbout()"> <i class="fa fa-scissors"></i> | &nbsp;
+                                Create Project </button>
+                            <button class="btn btn-light bt "><i class="fa fa-video-camera"></i> | &nbsp;
+                                Record Video </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <!-- Video  Card  -->
+            <div class="container">
+                <!-- <div class="container" *ngIf="videos.length > 0; else noVideosMessage"> -->
+
+                <div class="row align-items-center mt-5">
+                    <div class="text-start ">
+                        <h4 class="section-title px-5"><span class="px-2">My Recent Videos</span></h4>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 col-sm-12 pb-3 mt-1" >
+                        <div class="card  mx-5" style="max-width: 28rem;border: none !important;cursor: pointer;"
+                            (click)="navigateToAbout()">
+                            <video src="assets/video/Story.mp4" class="card-img-top" [muted]="'muted'" autoplay
+                                loop></video>
+                            <div class="card-title">
+                                <span class="asset-title" style="color: black; background: none;">Funny Bunny</span>
+                            </div>
+                            <div class="card-img-overlay text-white">10.03</div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-lg-4 col-md-6 col-sm-12 pb-3 mt-1" *ngFor="let video of videos">
+                        <div class="card text-white mx-5" (click)="navigateToAbout()" style="max-width: 28rem; border: none !important;">
+                          <video [src]="video.source"  class="card-img-top" muted autoplay loop></video>
+                          <div class="card-img-overlay">
+                            <h5 class="card-title" style="font-family: Sofia;">{{ video.name }}</h5>
+                          </div>
+                        </div>
+                      </div> -->
+
+                </div>
+            </div>
+
+            <!-- Video  Card end -->
+        </div>
+
+
+    </div>
+</div>
+
+
+<ng-template #noVideosMessage>
+    <div class="container">
+        <div class="row justify-content-center mt-3">
+            <div class="col text-start p-5 mx-3">
+                <h4>No videos found</h4>
+                <p>Please add videos to see them here.</p>
+            </div>
+        </div>
+    </div>

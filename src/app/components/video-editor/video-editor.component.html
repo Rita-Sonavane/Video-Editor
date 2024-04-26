@@ -1,0 +1,364 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <!-- First Column -->
+    <div class="col col-xs-12 col-sm-4  ">
+
+      <div class=" mt-2">
+        <a routerLink="/home" class="menu-toggle" title="Dashboard">
+          <i class="fas fa-chevron-left canvas-icon"></i>
+        </a>
+        <span class="asset-title">Assets</span>
+      </div>
+      <hr class="prop-break">
+
+      <div class="box asset-list"
+        [ngClass]="{'horizontal-layout': layoutStyle === 'horizontallist', 'list-layout': layoutStyle === 'list'}">
+        <div class="col-xs-12 col-sm-6 mx-1 mt-2 " (click)="handleVideoClick('assets/video/Story.mp4')">
+          <div class="card text-white" style="max-width: 28rem;border: none !important;">
+            <video src="assets/video/Story.mp4" class="card-img-top" [muted]="'muted'" autoplay loop></video>
+            <div class="card-title">
+              <span style="color: black;">Funny Bunny</span>
+            </div>
+            <div class="card-img-overlay">10.03</div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 mx-1  mt-2" (click)="handleVideoClick('assets/video/Nature.mp4')">
+          <div class="card text-white" style="max-width: 28rem;border: none !important;">
+            <video src="assets/video/Nature.mp4" class="card-img-top" [muted]="'muted'" autoplay loop></video>
+            <div class="card-title">
+              <span style="color: black;">Nature</span>
+            </div>
+            <div class="card-img-overlay">13:33</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="asset-footer text-center mb-2">
+        <div class="add-video text-end">
+          <button class="iconbtn"><i class="fa fa-plus-square"></i></button>
+        </div>
+        <div class="grid text-end">
+          <button class="iconbtn mx-1" title="horizontal" (click)="toggleLayout('horizontal')"><i
+              class="fa fa-th"></i></button>
+          <button class="iconbtn" (click)="toggleLayout('list')" title="list"><i class="fa fa-th-list"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Second Column -->
+    <div class="col-canvas col-xs-12 col-sm-5">
+      <div class="canva-control mt-2 text-center">
+        <button class="canvas-icon"><i class="fa fa-mouse-pointer"></i></button>
+        <button class="canvas-icon"><i class="fa fa-hand-paper-o"></i></button>
+        <button class="canvas-icon"><i class="fa fa-crop"></i></button>
+
+        <div class="t-dropdown-block  mt-2">
+          <div class="t-dropdown-select">
+            <input type="text" class="t-dropdown-input" placeholder="zoom" readonly />
+            <span class="t-select-btn">
+            </span>
+          </div>
+          <ul class="t-dropdown-list">
+            <li class="t-dropdown-item">10%</li>
+            <li class="t-dropdown-item">20%</li>
+            <li class="t-dropdown-item">30%</li>
+            <li class="t-dropdown-item">40%</li>
+            <li class="t-dropdown-item">50%</li>
+            <li class="t-dropdown-item">60%</li>
+            <li class="t-dropdown-item">70%</li>
+            <li class="t-dropdown-item">80%</li>
+            <li class="t-dropdown-item">90%</li>
+            <li class="t-dropdown-item">100%</li>
+
+          </ul>
+        </div>
+
+
+      </div>
+      <div class="box">
+
+        <!-- [style.transform]="
+                         'rotateX(' + rotationValues.x + 'deg) ' +
+                         'rotateY(' + rotationValues.y + 'deg) ' +
+                         'rotateZ(' + rotationValues.z + 'deg) ' " -->
+
+        <!-- <canvas  id="actual_canvas" ></canvas> -->
+        <div class="canvas_container mt-5">
+
+          <canvas #canvas id="actual_canvas"></canvas>
+          <video #video id="rendering_video" [src]="selectedvideo" autoplay loop muted style="display: none;"></video>
+        </div>
+      </div>
+
+
+    </div>
+
+    <!-- Third Column -->
+    <div class="col-3 col-xs-12 col-sm-3">
+      <div class="export-box text-end mt-2">
+        <button class="p-editor-btn"><i class="fa fa-upload"></i>&nbsp; Export</button>
+      </div>
+
+      <hr class="prop-break">
+
+      <div class="text-center mt-1">
+        <h4><span class="text-center">Properties</span></h4>
+      </div>
+
+      <div class="box">
+
+
+        <div class="property-editor">
+
+
+          <div class="range-unit mt-1">
+
+            <div class="slider scale-slider">
+              <button class="svgs"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" id="scale">
+                  <g fill="none" fill-rule="evenodd">
+                    <path stroke="#4A4A4A" stroke-linecap="round" d="M3 7.75V3h4.75"></path>
+                    <path fill="#4A4A4A" fill-rule="nonzero"
+                      d="M3.397 4.193a.563.563 0 0 1 .796-.796l6.364 6.364a.563.563 0 1 1-.796.796L3.397 4.193z"></path>
+                    <path stroke="#4A4A4A" stroke-linecap="round" d="M21 7.75V3h-4.75"></path>
+                    <path fill="#4A4A4A" fill-rule="nonzero"
+                      d="M20.603 4.193a.563.563 0 0 0-.796-.796l-6.364 6.364a.563.563 0 1 0 .796.796l6.364-6.364z">
+                    </path>
+                    <path stroke="#4A4A4A" stroke-linecap="round" d="M3 16.25V21h4.75"></path>
+                    <path fill="#4A4A4A" fill-rule="nonzero"
+                      d="M3.397 19.807a.563.563 0 0 0 .796.796l6.364-6.364a.563.563 0 1 0-.796-.796l-6.364 6.364z">
+                    </path>
+                    <path stroke="#4A4A4A" stroke-linecap="round" d="M21 16.25V21h-4.75"></path>
+                    <path fill="#4A4A4A" fill-rule="nonzero"
+                      d="M20.603 19.807a.563.563 0 0 1-.796.796l-6.364-6.364a.563.563 0 1 1 .796-.796l6.364 6.364z">
+                    </path>
+                  </g>
+                </svg></button>
+              &nbsp;
+              <label for="scale-slider">Scale</label> &nbsp; &nbsp;
+              <input type="range" min="0" max="100" value="1" id="scale-slider" step="1" [(ngModel)]="scaleValue"
+                (ngModelChange)="updateData()">
+              &nbsp; &nbsp; &nbsp;
+              <!-- <output for="opacity-slider" id="slider-value">0</output><span>%</span> -->
+              <input type="text" class="input-prop" id="slider-input" value="0%" readonly>
+            </div>
+
+            <div class="slider opacity-slider ">
+              <button class="svgs"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                  id="opacity">
+                  <path fill="none" d="M24 0H0v24h24V0zm0 0H0v24h24V0zM0 24h24V0H0v24z"></path>
+                  <path
+                    d="M17.66 8l-4.95-4.94c-.39-.39-1.02-.39-1.41 0L6.34 8C4.78 9.56 4 11.64 4 13.64s.78 4.11 2.34 5.67 3.61 2.35 5.66 2.35 4.1-.79 5.66-2.35S20 15.64 20 13.64 19.22 9.56 17.66 8zM6 14c.01-2 .62-3.27 1.76-4.4L12 5.27l4.24 4.38C17.38 10.77 17.99 12 18 14H6z">
+                  </path>
+                </svg></button>
+              &nbsp;
+              <label for="opacity-slider">Opacity</label>
+              <input type="range" min="0" max="100" value="1" id="opacity-slider" step="1" [(ngModel)]="opacityValue"
+                (ngModelChange)="updateData()">
+              &nbsp; &nbsp; &nbsp;
+              <!-- <output for="opacity-slider" id="slider-value">0</output><span>%</span> -->
+              <input type="text" class="input-prop" id="opacity-input" value="0%" readonly>
+            </div>
+
+          </div>
+
+
+          <div class="slider-position rotaion-unit  mt-3">
+            <div class="right">
+              <button class="svgs">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24"
+                  height="24" viewBox="0 0 24 24" version="1.1" id="Layer_1" viewBox="0 0 511.999 511.999"
+                  xml:space="preserve">
+                  <g>
+                    <g>
+                      <path
+                        d="M495.304,425.739H255.185c-3.583-51.997-23.784-100.693-58.116-140.068L401.37,81.369c6.521-6.516,6.521-17.092,0-23.609    c-6.521-6.521-17.087-6.521-23.609,0L162.228,273.293L4.891,430.631c-4.772,4.772-6.206,11.956-3.62,18.196    s8.674,10.303,15.423,10.303h222.609h256c9.217,0,16.696-7.473,16.696-16.696C511.999,433.212,504.521,425.739,495.304,425.739z" />
+                    </g>
+                  </g>
+                </svg>
+              </button>
+              &nbsp;
+              <span>Rotation</span>
+            </div>
+
+
+            <div class="left">
+
+              <div class="unit2 z-unit">
+                <i class="fa fa-rotate-right icon"></i> &nbsp; Z &nbsp;
+                <input type="text" class="input-prop" id="y-input" [(ngModel)]="rotationValues.z"
+                  (ngModelChange)="updateData()">
+              </div>
+
+              <div class="unit2 y-unit">
+                <i class="fa fa-rotate-right icon"></i> &nbsp; Y &nbsp;
+                <input type="text" class="input-prop" id="y-input" [(ngModel)]="rotationValues.y"
+                  (ngModelChange)="updateData()">
+              </div>
+
+              <div class="unit2 x-unit">
+                <i class="fa fa-rotate-right icon"></i> &nbsp; X &nbsp;
+                <input type="text" class="input-prop" id="y-input" [(ngModel)]="rotationValues.x"
+                  (ngModelChange)="updateData()">
+              </div>
+
+            </div>
+          </div>
+
+
+
+          <div class="slider-position poition-unit  mt-3">
+            <div class="right">
+              <button class="svgs">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24"
+                  height="24" viewBox="0 0 100 100" aria-hidden="true" role="img" class="iconify iconify--gis"
+                  preserveAspectRatio="xMidYMid meet">
+                  <path
+                    d="M50 0L35.355 14.645H45V30h10V14.645h9.645L50 0zM14.645 35.355L0 50l14.645 14.645V55H30V45H14.645v-9.645zm70.71 0V45H70v10h15.355v9.645L100 50L85.355 35.355zM50 37.45c-6.89 0-12.55 5.661-12.55 12.551c0 6.89 5.66 12.55 12.55 12.55c6.656 0 12.114-5.296 12.48-11.866a3.5 3.5 0 0 0 .07-.684a3.5 3.5 0 0 0-.071-.7C62.104 42.739 56.65 37.45 50 37.45zm0 7c3.107 0 5.55 2.444 5.55 5.551s-2.443 5.55-5.55 5.55c-3.107 0-5.55-2.443-5.55-5.55c0-3.107 2.443-5.55 5.55-5.55zM45 70v15.355h-9.645L50 100l14.645-14.645H55V70H45z"
+                    fill="#000000" />
+                </svg>
+              </button>
+              &nbsp;
+              <span>Position</span>
+            </div>
+
+            <div class="left">
+
+              <div class="unit2 z-unit">
+                &nbsp; &nbsp; X &nbsp;
+                <input type="text" class="input-prop" id="x-input" [(ngModel)]="positionValues.x"
+                  (ngModelChange)="updateData()">
+              </div>
+
+              <div class="unit2 y-unit">
+                &nbsp; &nbsp; Y &nbsp;
+                <input type="text" class="input-prop" id="x-input" [(ngModel)]="positionValues.y"
+                  (ngModelChange)="updateData()">
+              </div>
+
+              <div class="unit2 x-unit">
+                &nbsp; &nbsp; Z &nbsp;
+                <input type="text" class="input-prop" id="x-input" [(ngModel)]="positionValues.z"
+                  (ngModelChange)="updateData()">
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- footer -->
+
+  <div class="videoEditor-footer">
+    <div class="row">
+
+      <!-- footer sec1 -->
+
+      <div class="video-editor-contols col  col-md-12 ">
+        <div class="video-buttons">
+
+          <button class="play-pause-icon  skip" (click)='wavesurfer.skip(-3);seekTo(-3)'><i
+              class="fa fa-backward"></i></button>
+          <button class="play-pause-icon " (click)="playMedia()">
+            <i class="fa" [ngClass]="{'fa-play': !isPlaying, 'fa-pause': isPlaying}"></i>
+          </button>
+          <button class="play-pause-icon  " (click)='wavesurfer.skip(3);seekTo(3)'><i
+              class="fa fa-forward"></i></button>
+
+          <div class="timer mt-2  ">
+            <div class="currenttimer">
+              <input aria-label="current time" class="input-prop" disabled
+                [ngModel]="videoElement.currentTime | number:'1.2-2'">
+            </div>
+            <h4><span class="text-center"> &nbsp; /</span></h4>
+            <div class="totaldur">
+              <input aria-label="current time" class="input-prop" disabled
+                [ngModel]="videoElement.duration | number:'1.2-2'">
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- footer sec2 -->
+
+      <div class="footer-contols col col-md-12">
+        <button class="footer-contols-icon "><i class="fa fa-rotate-left icon"></i></button>
+        <button class="footer-contols-icon "><i class="fa fa-rotate-right icon"></i></button>
+        <button class="footer-contols-icon "><i class="fa fa-scissors icon"></i></button>
+        <button class="footer-contols-icon "><i class="far fa-copy icon"></i></button>
+        <button class="footer-contols-icon "><i class="fa fa-clipboard icon"></i></button>
+        <button class="footer-contols-icon"><i class="fa fa-columns icon"></i></button>
+
+        <!-- start -->
+        <!-- <button class="footer-contols-icon"><i class="fa fa-search-plus icon"></i></button>
+        <input type="range" min="0" max="100" value="1" id="scale-slider" step="1">
+        <button class="footer-contols-icon "><i class="fa fa-search-minus icon  "></i></button> -->
+
+
+        <div class="zoom">
+          <button class="footer-contols-icon "><i class="fa fa-search-minus icon  "></i></button>
+          <!-- <i class="glyphicon glyphicon-zoom-out"></i> -->
+          <input type="range" min="10" max="1000" value="100" id="slider" #slider (input)="onSliderInput($event)">
+          <!-- <i class="glyphicon glyphicon-zoom-in"></i> -->
+          <button class="footer-contols-icon"><i class="fa fa-search-plus icon"></i></button>
+        </div>
+        <!-- end -->
+      </div>
+
+
+      <!-- footer sec3 -->
+      <div class="scale-footer">
+        <div class="scale-footer-left col col-md-1 ">
+
+          <div class="unit-one">
+            <div class="fl mx-3">
+              <span>Track1</span>
+            </div>
+            <div class="fr text-end">
+              <button class="footer-contols-icon" (click)="toggleEye()">
+                <i class="fa icon" [ngClass]="{'fa-eye': !isEyeToggled, 'fa-eye-slash': isEyeToggled}"></i>
+              </button>
+              <button class="footer-contols-icon" (click)="toggleLock()">
+                <i class="fas icon" [ngClass]="{'fa-lock': !isLockToggled, 'fa-lock-open': isLockToggled}"></i>
+              </button>
+
+            </div>
+          </div>
+          <div class="unit-two">
+            <!-- <div class="fl mx-3">
+              <span>Track2</span>
+            </div>
+            <div class="fr ">
+              <button class="footer-contols-icon" (click)="toggleEye2()">
+                <i class="fa icon" [ngClass]="{'fa-eye': !isEyeToggled2, 'fa-eye-slash': isEyeToggled2}"></i>
+              </button>
+              <button class="footer-contols-icon" (click)="toggleLock2()">
+                <i class="fas icon" [ngClass]="{'fa-lock': !isLockToggled2, 'fa-lock-open': isLockToggled2}"></i>
+              </button>
+            </div> -->
+          </div>
+
+
+        </div>
+
+        <div class="scale-footer-right col col-md-11 ">
+
+          <div #waveform id="waveform">
+            <div id="waveform-timeline" #wavetimeline style="color: 3a3a4a;"></div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+</div>
